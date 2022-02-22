@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" key="material-icons"></link>
+      {/*<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" key="material-icons"></link>**/}
       </Head>
       <body>
         <Main />

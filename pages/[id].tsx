@@ -8,6 +8,9 @@ import styles from '../styles/Viewer.module.css'
 import header_styles from '../styles/Header.module.css'
 import 'highlight.js/styles/atom-one-dark.css';
 
+import NoteAdd from '@material-ui/icons/NoteAdd'
+
+
 const Viewer: NextPage = () => {
 
     const codeRef = useRef<HTMLTextAreaElement>(null)
@@ -46,7 +49,7 @@ const Viewer: NextPage = () => {
                     <div
                         className={header_styles["buttons"]}
                         onClick={() => router.push('/')}
-                    ><span className="material-icons">note_add</span></div>
+                    ><NoteAdd /></div>
                 </div>
             </div>
 

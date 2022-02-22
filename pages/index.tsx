@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import styles from '../styles/Editor.module.css'
 import header_styles from '../styles/Header.module.css'
 
+import Save from '@material-ui/icons/Save'
+import NoteAdd from '@material-ui/icons/NoteAdd'
 
 const Home: NextPage = () => {
 
@@ -53,12 +55,14 @@ const Home: NextPage = () => {
           <div
             className={header_styles["buttons"]}
             onClick={() => router.push('/')}
-          ><span className="material-icons">note_add</span></div>
+          >
+            <NoteAdd />
+          </div>
           <div
             className={header_styles["buttons"]}
             onClick={save}
           >
-            <span className="material-icons">save</span>
+            <Save />
           </div>
         </div>
       </div>
