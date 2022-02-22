@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  color: white;
+  border-bottom-color: var(--border-color, white);
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons-container {
+  display: flex;
+}
+
+.buttons {
+  padding: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.buttons:hover {
+  background-color: rgba(69, 69, 69, 0.5);
+}
+
+.logo {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: xx-large;
+  font-style: italic;
+  pointer-events: none;
+  user-select: none;
+}

@@ -1,0 +1,19 @@
+.viewer {
+    display: flex;
+    color: white;
+    width: 100%;
+    flex: 1;
+    padding-top: 10px;
+}
+
+.line-numbers {
+    padding-top: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.code {
+    flex: 1;
+    padding: 3px;
+    overflow-x: auto;
+}
