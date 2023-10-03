@@ -9,9 +9,10 @@ import 'highlight.js/styles/atom-one-dark.css';
 
 import NoteAdd from '@material-ui/icons/NoteAdd'
 import { GetServerSidePropsContext } from 'next'
+import { getData } from './api/get/[id]'
 
 
-const Viewer = ({ code }: {code: string}) => {
+const Viewer = ({ code }: { code: string }) => {
 
     const codeRef = createRef<HTMLTextAreaElement>();
     const router = useRouter()
@@ -58,10 +59,17 @@ const Viewer = ({ code }: {code: string}) => {
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
     const id = context.params?.id
-    // const setCode = (data) => {};
+    if (!id)
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            }
+        }
+    
+    let data = (await getData(id.toString())).data
 
-    const data = await fetch(`/api/get/${id}`).then(res => res.json())
-    if (!data.code) {
+    if (!data) {
         return {
             redirect: {
                 destination: '/',
