@@ -32,6 +32,10 @@ const Home: NextPage = () => {
         event.preventDefault()
         save()
       }
+      if (event.code === "KeyN" && event.shiftKey === true) {
+        event.preventDefault()
+        router.push('/')
+      }
     }
 
     document.addEventListener('keydown', listener)
@@ -39,7 +43,7 @@ const Home: NextPage = () => {
     return () => {
       document.removeEventListener('keydown', listener)
     }
-  }, [save])
+  }, [save, router])
 
   return (
     <div className={styles.container}>
@@ -75,7 +79,7 @@ const Home: NextPage = () => {
           autoFocus
           wrap="off"
           ref={codeRef}
-          placeholder={"Type Someting Here...\nCtrl + S to Save Document\nCtrl + N for New Document\n:)"}
+          placeholder={"Type Someting Here...\nCtrl + S to Save Document\nShift + N for New Document\n:)"}
           className={styles["code-editor"]}>
         </textarea>
       </div>

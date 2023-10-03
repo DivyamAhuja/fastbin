@@ -24,6 +24,21 @@ const Viewer = ({ code }: { code: string }) => {
             codeRef.current.innerHTML = html.value;
     }, [html, codeRef])
 
+    useEffect(() => {
+        const listener = (event : KeyboardEvent) => {
+          if (event.code === "KeyN" && event.shiftKey === true) {
+            event.preventDefault()
+            router.push('/')
+          }
+        }
+    
+        document.addEventListener('keydown', listener)
+    
+        return () => {
+          document.removeEventListener('keydown', listener)
+        }
+      }, [router])
+
     return (
         <div className={styles.container}>
             <Head>
