@@ -15,6 +15,7 @@
     height: 100%;
     flex: 1;
     padding-top: 10px;
+    overflow: scroll;
 }
 
 .line-numbers {
@@ -28,5 +29,4 @@
 .code {
     flex: 1;
     padding: 3px;
-    overflow-x: auto;
 }
