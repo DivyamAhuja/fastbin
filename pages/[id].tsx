@@ -25,19 +25,19 @@ const Viewer = ({ code }: { code: string }) => {
     }, [html, codeRef])
 
     useEffect(() => {
-        const listener = (event : KeyboardEvent) => {
-          if (event.code === "KeyN" && event.shiftKey === true) {
-            event.preventDefault()
-            router.push('/')
-          }
+        const listener = (event: KeyboardEvent) => {
+            if (event.code === "KeyN" && event.shiftKey === true) {
+                event.preventDefault()
+                router.push('/')
+            }
         }
-    
+
         document.addEventListener('keydown', listener)
-    
+
         return () => {
-          document.removeEventListener('keydown', listener)
+            document.removeEventListener('keydown', listener)
         }
-      }, [router])
+    }, [router])
 
     return (
         <div className={styles.container}>
@@ -81,10 +81,16 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
                 permanent: false,
             }
         }
-    
-    let data = (await getData(id.toString())).data
+    try {
+        let data = await getData(id.toString())
 
-    if (!data) {
+        return {
+            props: {
+                code: data.data?.code,
+            }
+        }
+    }
+    catch {
         return {
             redirect: {
                 destination: '/',
@@ -92,12 +98,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
             }
         }
     }
-
-    return {
-        props: {
-            code: data.code,
-        }
-    }
 }
+
 
 export default Viewer

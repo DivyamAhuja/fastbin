@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -9,12 +9,17 @@ import header_styles from '../styles/Header.module.css'
 import Save from '@material-ui/icons/Save'
 import NoteAdd from '@material-ui/icons/NoteAdd'
 
+import { Snackbar } from '@mui/material'
+
 const Home: NextPage = () => {
+
+  const [uploading, setUploading] = useState(false);
 
   const codeRef = useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
 
   const save = useCallback(() => {
+    setUploading(true);
     fetch('/api/new', {
       'method': 'POST',
       'headers': {
@@ -83,6 +88,7 @@ const Home: NextPage = () => {
           className={styles["code-editor"]}>
         </textarea>
       </div>
+      <Snackbar open={uploading}><div className={styles.toast}>Uploading document...</div></Snackbar>
     </div>
   )
 }
