@@ -24,3 +24,32 @@ a {
   text-decoration: none;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-color) white;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  cursor: default;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  background: var(--bg-color);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--bg-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 3px solid black;
+  border-radius: 6px;
+  background: rgb(255, 255, 255);
+}
