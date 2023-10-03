@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   const codeRef = useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
 
-  const save = () => {
+  const save = useCallback(() => {
     fetch('/api/new', {
       'method': 'POST',
       'headers': {
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
     }).then(res => res.json())
       .then(({ id }) => router.push(`/${id}`))
       .catch(() => router.push('/'))
-  }
+  }, [])
 
   useEffect(() => {
     const listener = (event : KeyboardEvent) => {

@@ -1,5 +1,6 @@
-import { useRef, useEffect, useState } from 'react'
-import type { NextPage } from 'next'
+import { useRef, useEffect, useState, createRef } from 'react'
+import type { InferGetServerSidePropsType, NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import hljs from 'highlight.js'
@@ -11,23 +12,14 @@ import 'highlight.js/styles/atom-one-dark.css';
 import NoteAdd from '@material-ui/icons/NoteAdd'
 
 
-const Viewer: NextPage = () => {
+const Viewer = ({ code }: {code: string}) => {
 
-    const codeRef = useRef<HTMLTextAreaElement>(null)
-    const [code, setCode] = useState("")
-    
+    const codeRef = createRef<HTMLTextAreaElement>();
+
     const router = useRouter()
-    const { id } = router.query
-    
-    useEffect(() => {
-        fetch(`/api/get/${id}`)
-            .then(res => res.json())
-            .then((data) => setCode(data.code))
-            .catch(() => router.push('/'))
-    }, [])
-    
+
     const lines = code.split('\n');
-    
+
     const html = hljs.highlightAuto(code);
 
     useEffect(() => {
@@ -56,7 +48,7 @@ const Viewer: NextPage = () => {
             <div className={styles['viewer']}>
                 <code className={styles["line-numbers"]}>
                     {
-                        lines.map((line, index) => <pre key={index}> {index + 1} </pre>)
+                        lines.map((_line, index) => <pre key={index}> {index + 1} </pre>)
                     }
                 </code>
                 <pre className={styles["code"]}>
@@ -68,10 +60,25 @@ const Viewer: NextPage = () => {
     )
 }
 
-export async function getServerSideProps() {
-    return {
-        props: {},
+export const getServerSideProps = (async (context) => {
+    const id = context.params?.id
+    // const setCode = (data) => {};
+
+    const data = await fetch(`/api/get/${id}`).then(res => res.json())
+    if (!data.code) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            }
+        }
     }
-}
+
+    return {
+        props: {
+            code: data.code,
+        }
+    }
+}) satisfies GetServerSideProps<{ code: string }>
 
 export default Viewer
