@@ -8,23 +8,20 @@ import header_styles from '../styles/Header.module.css'
 import 'highlight.js/styles/atom-one-dark.css';
 
 import NoteAdd from '@material-ui/icons/NoteAdd'
-import { GetServerSideProps } from 'next'
+import { GetServerSidePropsContext } from 'next'
 
 
 const Viewer = ({ code }: {code: string}) => {
 
     const codeRef = createRef<HTMLTextAreaElement>();
-
     const router = useRouter()
-
     const lines = code.split('\n');
-
     const html = hljs.highlightAuto(code);
 
     useEffect(() => {
         if (codeRef.current)
             codeRef.current.innerHTML = html.value;
-    }, [html])
+    }, [html, codeRef])
 
     return (
         <div className={styles.container}>
@@ -59,7 +56,7 @@ const Viewer = ({ code }: {code: string}) => {
     )
 }
 
-export const getServerSideProps = (async (context) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
     const id = context.params?.id
     // const setCode = (data) => {};
 
@@ -78,6 +75,6 @@ export const getServerSideProps = (async (context) => {
             code: data.code,
         }
     }
-}) satisfies GetServerSideProps<{ code: string }>
+}
 
 export default Viewer

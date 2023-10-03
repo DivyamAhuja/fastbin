@@ -24,7 +24,7 @@ const Home: NextPage = () => {
     }).then(res => res.json())
       .then(({ id }) => router.push(`/${id}`))
       .catch(() => router.push('/'))
-  }, [])
+  }, [router])
 
   useEffect(() => {
     const listener = (event : KeyboardEvent) => {
