@@ -1,6 +1,4 @@
-import { useRef, useEffect, useState, createRef } from 'react'
-import type { InferGetServerSidePropsType, NextPage } from 'next'
-import { GetServerSideProps } from 'next'
+import { useEffect, createRef } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import hljs from 'highlight.js'
@@ -10,6 +8,7 @@ import header_styles from '../styles/Header.module.css'
 import 'highlight.js/styles/atom-one-dark.css';
 
 import NoteAdd from '@material-ui/icons/NoteAdd'
+import { GetServerSideProps } from 'next'
 
 
 const Viewer = ({ code }: {code: string}) => {
