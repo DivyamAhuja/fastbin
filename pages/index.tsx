@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { KeyboardEventHandler, useCallback, useEffect, useRef, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
   }, [router])
 
   useEffect(() => {
-    const listener = (event : KeyboardEvent) => {
+    const listener = (event: KeyboardEvent) => {
       if (event.code === "KeyS" && event.ctrlKey === true) {
         event.preventDefault()
         save()
@@ -49,6 +49,23 @@ const Home: NextPage = () => {
       document.removeEventListener('keydown', listener)
     }
   }, [save, router])
+
+  const keyDownHandler: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
+    if (e.key === "Tab") {
+      e.preventDefault()
+      e.currentTarget.setRangeText(
+        '\t',
+        e.currentTarget.selectionStart,
+        e.currentTarget.selectionStart,
+        'end'
+      )
+    }
+  }
+
+  useEffect(() => {
+    if (codeRef.current)
+      codeRef.current.focus();
+  }, [codeRef])
 
   return (
     <div className={styles.container}>
@@ -81,14 +98,15 @@ const Home: NextPage = () => {
           {">"}
         </span>
         <textarea
-          autoFocus
+          onKeyDown={keyDownHandler}
+          spellCheck={false}
           wrap="off"
           ref={codeRef}
           placeholder={"Type Someting Here...\nCtrl + S to Save Document\nShift + N for New Document\n:)"}
           className={styles["code-editor"]}>
         </textarea>
       </div>
-      <Snackbar open={uploading}><div className={styles.toast}>Uploading document...</div></Snackbar>
+      <Snackbar open={uploading}><div className={styles.toast}>Uploading Document ...</div></Snackbar>
     </div>
   )
 }

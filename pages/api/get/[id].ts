@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import faunadb, { Collection, Get, Ref, Time } from "faunadb";
+import { Collection, Get, Ref, Time } from "faunadb";
+import client from "../../../lib/fauna-client";
 
 type Data = {
   code: string;
@@ -10,13 +11,6 @@ type FaunaQueryResponse = {
   ts?: typeof Time;
   data?: Data;
 };
-
-const client = new faunadb.Client({
-  secret: process.env.FAUNA_ADMIN_KEY || "",
-  domain: "db.fauna.com",
-  port: 443,
-  scheme: "https",
-});
 
 export default async function handler(
   req: NextApiRequest,
