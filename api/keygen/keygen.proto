@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "fastbin/internal/keygen";
+
+package keygen;
+
+service Keygen {
+    rpc GenerateKey(Empty) returns (Key) {}
+}
+
+message Empty {}
+
+message Key {
+    string value = 1;
+}

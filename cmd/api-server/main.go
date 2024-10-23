@@ -7,7 +7,8 @@ import (
 )
 
 func main() {
-	server := apiserver.NewAPIServer(8080)
+	port := 8080
+	server := apiserver.NewAPIServer(port)
 	err := server.ListenAndServe()
 	if err != nil && err != http.ErrServerClosed {
 		panic(fmt.Sprintf("http server error: %s", err))
