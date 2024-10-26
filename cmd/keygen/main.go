@@ -2,13 +2,18 @@ package main
 
 import (
 	keygen "fastbin/internal/keygen"
+	"fastbin/internal/pkg/env"
 	"fmt"
 	"log"
 	"net"
+	"strconv"
 )
 
 func main() {
-	port := 8081
+	port, err := strconv.Atoi(env.GetEnv("API_PORT", "8081"))
+	if err != nil {
+		log.Fatalf("error listening port: %v, err: %v", port, err)
+	}
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
