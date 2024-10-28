@@ -10,6 +10,7 @@ import (
 
 	pb "fastbin/api/keygen"
 
+	"fastbin/internal/pkg/env"
 	paste "fastbin/internal/pkg/paste"
 
 	"github.com/gin-gonic/gin"
@@ -106,7 +107,7 @@ func (as *APIServer) write(gc *gin.Context) {
 }
 
 func (as *APIServer) try_write(data string) (string, error) {
-	grpcServerURL := "localhost:8081"
+	grpcServerURL := env.GetEnv("KEYGEN_HOST", "localhost") + ":" + env.GetEnv("KEYGEN_PORT", "8080")
 	conn, err := grpc.NewClient(grpcServerURL, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return "", err
