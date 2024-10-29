@@ -18,8 +18,6 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-
-	_ "fastbin/internal/pkg/env"
 )
 
 type Paste = paste.Paste
@@ -87,10 +85,8 @@ func (as *APIServer) write(gc *gin.Context) {
 			"key": "",
 		})
 	}
-	fmt.Println(requestBody.Text)
-	key, err := as.try_write(requestBody.Text)
-	fmt.Println(requestBody.Text)
 
+	key, err := as.try_write(requestBody.Text)
 	for tries := 0; err != nil && tries < 5; tries++ {
 		key, err = as.try_write(requestBody.Text)
 	}

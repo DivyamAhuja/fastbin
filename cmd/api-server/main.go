@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	port, err := strconv.Atoi(env.GetEnv("API_PORT", "8080"))
+	port, err := strconv.Atoi(env.GetEnv("API_INTERNAL_PORT", "8080"))
 	if err != nil {
 		log.Fatalf("error listening port: %v, err: %v", port, err)
 	}
