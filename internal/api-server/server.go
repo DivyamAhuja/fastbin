@@ -46,8 +46,8 @@ func NewAPIServer(port int) *http.Server {
 	s := APIServer{db: db}
 
 	r := gin.Default()
-	r.POST("/", s.write)
-	r.GET("/:key", s.read)
+	r.POST("/write", s.write)
+	r.GET("/read/:key", s.read)
 
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%d", port),
@@ -64,11 +64,12 @@ func (as *APIServer) read(gc *gin.Context) {
 	res := as.db.First(&paste, "id = ?", key)
 	if res.Error != nil {
 		gc.JSON(http.StatusNotFound, gin.H{
-			"message": "Not Found.",
+			"error": "Not Found.",
+			"text":  "",
 		})
 	} else {
 		gc.JSON(http.StatusOK, gin.H{
-			"message": paste.Text,
+			"text": paste.Text,
 		})
 	}
 }
