@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-server
+  template:
+    metadata:
+      labels:
+        app: api-server
+    spec:
+      initContainers:
+        - name: wait-for-psql
+          image: busybox
+          command: ['sh', '-c', 'until nc -z psql-service 5432; do echo waiting for postgres readiness; sleep 2; done;']
+      containers:
+        - name: api-server
+          image: registry.lab.divyam.dev/fastbin-api-server:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: fastbin-config
+                  key: DB_DATABASE
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: fastbin-config
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: fastbin-config
+                  key: DB_PASSWORD
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: fastbin-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: fastbin-config
+                  key: DB_PORT
+            - name: KEYGEN_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: fastbin-config
+                  key: KEYGEN_HOST
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-server-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: api-server
+  type: LoadBalancer

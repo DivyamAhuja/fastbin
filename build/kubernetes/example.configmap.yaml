@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fastbin-config
+data:
+  DB_DATABASE: "fastbin"
+  DB_USERNAME: "username"
+  DB_PASSWORD: "password"
+  DB_HOST: "psql-service"
+  DB_PORT: "5432"
+  KEYGEN_HOST: "keygen-service"
