@@ -1,5 +1,7 @@
 # fastbin: a text sharing application
 
+https://fastbin.lab.divyam.dev
+
 A text sharing application made with microservice architecture in golang.
 Services:
 - API Server (Read and Write)
