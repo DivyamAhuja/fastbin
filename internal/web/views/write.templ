@@ -1,0 +1,41 @@
+package views
+
+var onceHandle = templ.NewOnceHandle()
+
+templ Write() {
+	@Base("fastbin") {
+		<form id="input_form" hx-post="/" class="w-dvw h-dvh bg-primary flex flex-col items-start justify-center">
+			@Header() {
+				<a href="/" class="inline-block text-center align-middle">
+					@Button() {
+						<span class="material-symbols-outlined">note_add</span>
+					}
+				</a>
+                <a>
+				<button type="submit">
+					@Button() {
+						<span class="material-symbols-outlined">save</span>
+					}
+				</button>
+                </a>
+			}
+			<script type="text/javascript">
+                function keyDownHandler(e) {
+                    if (e.key === "Tab") {
+                        e.preventDefault()
+                        e.currentTarget.setRangeText(
+                            '\t',
+                            e.currentTarget.selectionStart,
+                            e.currentTarget.selectionStart,
+                            'end'
+                        )
+                    }
+                }
+            </script>
+			<div class="flex flex-1 w-full text-white text-xl">
+				<div class="h-full px-2.5 select-none">></div>
+				<textarea required name="text" id="input" onkeydown="keyDownHandler(event)" autofocus wrap="off" spellcheck="false" class="flex-1 w-full h-full bg-transparent resize-none outline-none border-none text-white text-xl"></textarea>
+			</div>
+		</form>
+	}
+}

@@ -1,0 +1,17 @@
+package views
+
+templ Read(text string) {
+	@Base("fastbin") {
+		@Header() {
+			<a href="/" class="inline-block text-center align-middle">
+				@Button() {
+					<span class="material-symbols-outlined">note_add</span>
+				}
+			</a>
+		}
+		<div class="flex flex-1 w-full text-white text-xl">
+			<div class="h-full px-2.5 select-none">></div>
+			<textarea required readonly name="text" id="input" autofocus wrap="off" spellcheck="false" class="flex-1 w-full h-full bg-transparent resize-none outline-none border-none text-white text-xl">{ text } </textarea>
+		</div>
+	}
+}

@@ -9,3 +9,4 @@ data:
   DB_HOST: "psql-service"
   DB_PORT: "5432"
   KEYGEN_HOST: "keygen-service"
+  API_URL: "http://api-server-service"

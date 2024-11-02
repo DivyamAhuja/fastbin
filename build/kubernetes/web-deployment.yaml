@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastbin-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastbin-web
+  template:
+    metadata:
+      labels:
+        app: fastbin-web
+    spec:
+      containers:
+        - name: api-server
+          image: registry.lab.divyam.dev/fastbin-web:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: fastbin-config
+                  key: API_URL
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastbin-web-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: fastbin-web
+  type: LoadBalancer

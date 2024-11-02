@@ -1,0 +1,34 @@
+package views
+
+templ Base(title string) {
+	<html>
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" />
+			<script src="assets/js/htmx.min.js"></script>
+			<link rel="stylesheet" href="assets/css/output.css"/>
+			<title>{ title }</title>
+		</head>
+		<body>
+			<main class="w-dvw h-dvh bg-primary flex flex-col items-start justify-center">
+				{ children... }
+			</main>
+		</body>
+	</html>
+}
+
+templ Header() {
+	<div class="w-full flex justify-between items-center text-white border-b-2 border-b-border">
+		<div class="px-[20px] py-[10px] text-4xl italic select-none pointer-events-none">fastbin</div>
+		<div class="flex self-stretch items-stretch">
+			{ children... }
+		</div>
+	</div>
+}
+
+templ Button() {
+	<div class="w-[70px] h-[70px] flex justify-center align-middle items-center text-center cursor-pointer select-none hover:bg-border/50">
+		{ children... }
+	</div>
+}

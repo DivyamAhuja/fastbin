@@ -1,0 +1,17 @@
+package views
+
+templ NotFound() {
+	@Base("fastbin") {
+		@Header() {
+			<a href="/" class="inline-block text-center align-middle">
+				@Button() {
+					<span class="material-symbols-outlined">note_add</span>
+				}
+			</a>
+		}
+		<div class="flex flex-1 w-full text-white text-xl">
+			<div class="h-full px-2.5 select-none">></div>
+			<div class="flex w-full h-full bg-transparent resize-none text-white justify-center items-center text-8xl"><div>404: Page Not Found. </div></div>
+		</div>
+	}
+}
